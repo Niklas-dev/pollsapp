@@ -1,0 +1,48 @@
+########################################################
+# creates postgres sql database image and pgadmin4 image
+# login db: postgres:postgres hostname: postgres
+# login pgadmin: admin@developer-blog.net:admin port 5555
+########################################################
+version: "3"
+services:
+  postgres:
+    image: postgres
+    container_name: pollsapp-postgres
+
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pollsapp-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pollsapp-pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - 5556:81
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver
+    container_name: "pollsapp-dbeaver"
+    restart: unless-stopped
+    ports:
+      - 8980:8980
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver/workspace
+
+
+
+volumes:
+  postgres-data:
+  cloudbeaver:
+
