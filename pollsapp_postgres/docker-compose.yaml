@@ -10,7 +10,7 @@ services:
     container_name: pollsapp-postgres
 
     ports:
-      - 5434:5434
+      - 5436:5436
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -25,7 +25,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - 5556:81
+      - 5557:81
     environment:
       PGADMIN_DEFAULT_EMAIL: test@gmail.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -36,7 +36,7 @@ services:
     container_name: "pollsapp-dbeaver"
     restart: unless-stopped
     ports:
-      - 8980:8980
+      - 8981:8981
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
 
